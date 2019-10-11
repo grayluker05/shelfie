@@ -30,18 +30,15 @@ class Form extends Component {
     render(){
         return(
             <div>
-                Form
-            </div>
-            <div>
-                <name type="text" value={this.state.name} onChange={this.handleChange}/>
-                <price type="number" value={this.state.price} onChange={this.handleChange}/>
-                <imgurl type="url" value={this.state.imgurl} onChange={this.handleChange}/>
+               <input type="text" value={this.state.name} onChange={this.handleChange}/>
+                <input type="number" value={this.state.price} onChange={this.handleChange}/>
+                <input type="url" value={this.state.imgurl} onChange={this.handleChange}/>
                 <button>
                     Add to Inventory
                 </button>
                 <button onClick={this.clear}>
                     Cancel
-                </button>
+                </button> 
             </div>
         )
     }
