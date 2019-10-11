@@ -7,6 +7,9 @@ class Dashboard extends Component {
             <div>
                 Dashboard
                 <Product />
+                <div>
+                    {this.props.inventory}
+                </div>
             </div>
         )
     }  

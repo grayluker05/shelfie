@@ -16,9 +16,9 @@ massive(CONNECTION_STRING)
     .catch(err => console.log(err))
 
 //endpoints
-app.get('/api/products')
-app.put('/api/products')
-app.post('/api/products/:id')
-app.delete('/api/products/:id')
+app.get('/api/inventory', ctrl.getQuantity)
+app.put('/api/inventory')
+app.post('/api/inventory/:id')
+app.delete('/api/inventory/:id')
 
 app.listen(SERVER_PORT, console.log(`Running on port: ${SERVER_PORT}`))
