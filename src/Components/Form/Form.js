@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 
 class Form extends Component {
     constructor(){
@@ -7,38 +7,51 @@ class Form extends Component {
 
         this.state = {
             name: '',
-            price: 0,
-            imgurl: ''
+            price: '',
+            image: '',
+            selectedProduct: null
         }
     }
 
-    handleChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    };
+    handleInputs = (e) => {
+        let { name, value } =  e.target
+        this.setState({[name] : value})
+      }
+    
+      handleCancel = () => {
+          this.setState({
+            image: '',
+            name: '',
+            price: ''
+          })
+      }
 
-    clear = id => {
-        axios.delete(`/api/inventory/${id}`)
-        .then(res => {
-            inventory: res.data
+      buttonPress = () => {
+        const {name, price, image} = this.state
+        axios.post("/api/inventory", { image, name, price }).then(res => {
+          this.props.didMount()
         })
-        .catch(err => console.log(err))
-    }
+        this.handleCancel()
+      }
 
 
     render(){
+        const {name, price, image} = this.state
         return(
             <div>
-               <input type="text" value={this.state.name} onChange={this.handleChange}/>
-                <input type="number" value={this.state.price} onChange={this.handleChange}/>
-                <input type="url" value={this.state.imgurl} onChange={this.handleChange}/>
-                <button>
-                    Add to Inventory
-                </button>
-                <button onClick={this.clear}>
-                    Cancel
-                </button> 
+               <div className="form-border">
+          <div className='row'>
+            <img className="add-pic" />
+            <article>Image URL:</article>
+            <input name='image' value={image} onChange={(e) => this.handleInputs(e)}/>
+            <article>Product Name:</article>
+            <input name='name' value={name} onChange={(e) => this.handleInputs(e)}/>
+            <article>Price:</article>
+            <input name='price' value={price} onChange={(e) => this.handleInputs(e)}/>
+          </div>
+          <button className="cancel-button" onClick={this.handleCancel}>Cancel</button>
+          <button className="add-button" onClick={this.buttonPress}>Add to Inventory</button>
+        </div>
             </div>
         )
     }

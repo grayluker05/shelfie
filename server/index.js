@@ -17,8 +17,7 @@ massive(CONNECTION_STRING)
 
 //endpoints
 app.get('/api/inventory', ctrl.getQuantity)
-app.put('/api/inventory')
-app.post('/api/inventory/:id')
-app.delete('/api/inventory/:id')
+app.post('/api/inventory/:id', ctrl.create)
+app.delete('/api/inventory/:id', ctrl.delete)
 
 app.listen(SERVER_PORT, console.log(`Running on port: ${SERVER_PORT}`))
